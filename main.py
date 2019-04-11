@@ -13,6 +13,12 @@ index = 0
 def directorychooser():
 
     directory = askdirectory()  
+    os.chdir(directory)
 
-directorychooser()
+    for files in os.listdir():
+        if files.endswith(".mp3"):
+
+            listofsongs.append(files)
+            print(files)
+
 root.mainloop()
