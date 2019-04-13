@@ -11,6 +11,11 @@ root.minsize(300,300)
 listofsongs = []
 realnames = []
 
+v = StringVar()
+songlabel = Label(root, textvariable=v, width=35)
+
+
+
 index = 0
 
 def nextsong(event):
@@ -18,6 +23,8 @@ def nextsong(event):
     index += 1
     pygame.mixer.music.load(listofsongs[index])
     pygame.mixer.music.play()
+
+    updatelabel()
     
 def prevsong(event):
     global index
@@ -25,8 +32,17 @@ def prevsong(event):
     pygame.mixer.music.load(listofsongs[index])
     pygame.mixer.music.play()
 
+    updatelabel()
+
 def stopsong(event):
     pygame.mixer.music.stop()
+    v.set("")
+
+def updatelabel():
+    global index
+    global songname
+    v.set(realnames[index])
+    return songname
 
 def directorychooser():
 
@@ -61,7 +77,7 @@ listbox.pack()
 # listofsongs.reverse()
 realnames.reverse()
 
-for items in listofsongs:
+for items in realnames:
     listbox.insert(0, items)
 
 # listofsongs.reverse()
@@ -79,5 +95,7 @@ stopbutton.pack()
 nextbutton.bind("<Button-1>", nextsong)    
 previousbutton.bind("<Button-1>", prevsong)    
 stopbutton.bind("<Button-1>", stopsong)    
+
+songlabel.pack()
 
 root.mainloop()
